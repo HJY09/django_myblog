@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <h1>{{ article.title }}</h1>
+  <p>{{ article.pub_date }}</p>
+  <p>{{ article.content }}</p>
+
+  <p><a href ="{% url 'polls:index' %}">Back to home</a></p>
+  <a href ="{% url 'polls:edit' article.id %}" method="POST">Edit Article</a>
+
+<form action="{% url 'polls:delete' article.id %}" method ='POST'>
+  {% csrf_token %}
+
+  <input type="submit" value="Delete Article">
+</form>
+
+  <p>Reply</p>
+  {% for comment in article.comment_set.all %}
+  <p>{{ comment.c_time }}</p>
+  <p>{{ comment.c_content }}</p>
+  {% endfor %}
+
+  <form action="{% url 'polls:reply' article.id %}" method="post">
+{% csrf_token %}
+    <input type="text" name="c_content">
+    <input type="submit" value="Reply">
+  </form>
+  </body>
+</html>

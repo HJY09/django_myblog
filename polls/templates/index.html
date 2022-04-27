@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% if article_list %}
+    <ul>
+    {% for article in article_list %}
+        <li><a href ="{% url 'polls:result' article.id%}">{{ article.title}}</a></li>
+      <p>{{ article.pub_date }}</p>
+      <p>{{ article.content }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+  <a href="/polls/detail/">publish</a>
+  </body>
+</html>
