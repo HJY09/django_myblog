@@ -7,6 +7,10 @@
   <body>
   <h1>{{ article.title }}</h1>
   <p>{{ article.pub_date }}</p>
+<p>Show photo</p>
+    <img src="/static/media/{{ article.photo }}"  alt="image">
+
+
   <p>{{ article.content }}</p>
 
   <p><a href ="{% url 'polls:index' %}">Back to home</a></p>

@@ -6,6 +6,9 @@ from .models import Article, Comment
 from django.utils import timezone
 from django.urls import reverse
 
+import os
+from django.conf import settings
+
 
 # Create your views here.
 def index(request):
@@ -38,8 +41,10 @@ def vote(request):
         elif content == '':
             return render(request, 'detail.html', {'content_empty': "content can't be empty!"})
         else:
-            a = Article(title=title, content=content, pub_date=timezone.now())
+            photo = request.FILES.get('photo')
+            a = Article(title=title, content=content, pub_date=timezone.now(), photo=photo)
             a.save()
+
             return HttpResponseRedirect(reverse('polls:result', args=(a.id,)))
 
 

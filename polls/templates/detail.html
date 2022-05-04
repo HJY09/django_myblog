@@ -5,7 +5,7 @@
 
   </head>
   <body>
-    <form action="{% url 'polls:vote'  %}" method="post">
+    <form action="{% url 'polls:vote'  %}" method="post" enctype="multipart/form-data" >
 {% csrf_token %}
 <fieldset>
     <legend><h1>Publish</h1></legend>
@@ -14,9 +14,13 @@
         <input type="text" name="title"  >
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     {% if title_empty %}<p><strong>{{ title_empty }}</strong></p>{% endif %}
-  <p>content</p>
+
+    <p>content</p>
         <input type="text" name="content"  >
     {% if content_empty %}<p><strong>{{ content_empty }}</strong></p>{% endif %}
+
+<p>picture</p>
+    <input type="file" name="photo" >
 
 </fieldset>
 <input type="submit" value="Submit">
