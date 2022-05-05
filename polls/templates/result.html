@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+
     <title></title>
   </head>
   <body>
@@ -23,15 +24,42 @@
 </form>
 
   <p>Reply</p>
+  <div id="cmt_list">
   {% for comment in article.comment_set.all %}
   <p>{{ comment.c_time }}</p>
   <p>{{ comment.c_content }}</p>
   {% endfor %}
+    </div>
 
-  <form action="{% url 'polls:reply' article.id %}" method="post">
-{% csrf_token %}
-    <input type="text" name="c_content">
-    <input type="submit" value="Reply">
-  </form>
+
+    <textarea id="printing" name="c_content"></textarea>
+  <input type="submit"  id="write" >
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $("write").submit(function () {
+    var content = $("printing").val()
+    $.ajax({
+      url: "../reply",
+      type: 'post',
+      data:{
+        'article_id': {{article.id}}
+        'c_content': content,
+       },
+      success: function(data){
+        console.log(data)
+        $("#printing").val('')
+      },
+      error:function(){
+        console.log('shi bai')
+      }
+    });
+    $("#cmt_list").append("+11111');
+
+  })
+</script>
+
+
+
   </body>
 </html>

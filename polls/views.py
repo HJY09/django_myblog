@@ -5,6 +5,7 @@ from django.template import loader
 from .models import Article, Comment
 from django.utils import timezone
 from django.urls import reverse
+from django.http import JsonResponse
 
 import os
 from django.conf import settings
@@ -55,12 +56,13 @@ def delete(request, article_id):
         return redirect('/polls')
 
 
-def reply(request, article_id):
-    c_content = request.POST['c_content']
-    a = Article.objects.get(pk=article_id)
+def reply(request):
+    print(request.POST)
+    article_id = request.POST.get('article_id')
+    c_content = request.POST.get('c_content')
     a.comment_set.create(c_content=c_content)
-    return HttpResponseRedirect(reverse('polls:result', args=(a.id,)))
 
+    return HttpResponse('ok')
 
 def edit(request, article_id):
     article = Article.objects.get(pk=article_id)
